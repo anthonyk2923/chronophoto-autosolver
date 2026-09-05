@@ -1,15 +1,36 @@
-# ChronoPhotoCheat
-Automaticaly gets 1000 points per question. Simply press next round
+# chronophoto-autosolver
 
-# Help me install: 
-Install a user script mangager such as tampermonkey via your browser webstore
-    ex: chrome: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
+A userscript that automatically scores the maximum 1000 points per round in
+[Chronophoto](https://www.chronophoto.app), the "guess the year a photo was
+taken" game.
 
-##### after that you have 2 options: 
+This is a client-side exploit demo: the game exposes the correct answer
+(`pictureDate`) to the page's JavaScript, so the script simply reads it,
+converts it to the slider's scale, sets the slider, and submits.
 
-### Red Pill - suffer but more config
-open you script manager and make an new script, after that copy and paste the code in app.js and save
+## How it works
 
-### Blue Pill - easier 
+`app.js` polls for the global `pictureDate` variable the game defines for the
+current photo. Once present, it maps the year onto the noUiSlider range
+(`pictureDate / 29.234`), calls `pipsSlider.noUiSlider.set(...)`, and invokes
+the game's own `submitAnswer()`.
 
-Open https://greasyfork.org/en/scripts/492681-chronophoto-cheat and hit download, follow the instructions 
+## Install
+
+1. Install a userscript manager such as
+   [Tampermonkey](https://www.tampermonkey.net/).
+2. Either:
+   - **Manual:** create a new script and paste the contents of `app.js`, or
+   - **Greasy Fork:** install from
+     https://greasyfork.org/en/scripts/492681-chronophoto-cheat
+
+Then play a round and press "next round".
+
+## Disclaimer
+
+Educational — it demonstrates why answer validation must happen server-side.
+Don't use it on leaderboards or against other players.
+
+## License
+
+No license has been specified yet.
